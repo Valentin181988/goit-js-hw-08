@@ -8,31 +8,28 @@ const LOCALSTORAGE_KEY = "feedback-form-state";
 
 fillFormAfterReload();
 
-const throttleFunction = throttle(() => {
-     const data = {
-        message: messageInput.value,
-        email: emailInput.value
-     };
-    
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data));
-    console.log('throttle')
-}, 500);
-
-form.addEventListener('input', () => {
-
-    throttleFunction();
-});
+form.addEventListener('input', throttle(fillForm, 500));
 
 form.addEventListener("submit", (evt) => {
      evt.preventDefault();
     
     const savedInput = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
     
-    localStorage.clear();
+    localStorage.removeItem(LOCALSTORAGE_KEY);
     form.reset();
 
     console.log(savedInput);
 });
+
+function fillForm() {
+    const data = {
+        message: messageInput.value,
+        email: emailInput.value
+     };
+    
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data));
+    console.log('throttle')
+}
 
 function fillFormAfterReload() {
     const savedInput = localStorage.getItem(LOCALSTORAGE_KEY);
