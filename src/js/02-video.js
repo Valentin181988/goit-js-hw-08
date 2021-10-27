@@ -12,16 +12,12 @@ var iframe = document.querySelector('iframe');
         console.log('title:', title);
     });
 
-
-const throttleFunction = throttle(function (seconds) {
-    localStorage.setItem("videoplayer-current-time", seconds)
+function savedTime(data) {
+    localStorage.setItem("videoplayer-current-time", data.seconds);
     console.log('throttle')
-}, 1000);
+}
 
-
-player.on('timeupdate', function (data) {
-    throttleFunction(data.seconds)
-});
+player.on('timeupdate', throttle(savedTime, 1000));
 
 const seconds = localStorage.getItem("videoplayer-current-time");
 
