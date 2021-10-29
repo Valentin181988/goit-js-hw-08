@@ -15,17 +15,21 @@ form.addEventListener("submit", (evt) => {
     
     const savedInput = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
     
-    localStorage.removeItem(LOCALSTORAGE_KEY);
-    form.reset();
+    if (savedInput == null) {
+        alert('Все поля должны быть заполнены!')
+    } else {
+        localStorage.removeItem(LOCALSTORAGE_KEY);
+        form.reset();
 
-    console.log(savedInput);
+        console.log(savedInput);
+    };
 });
 
 function fillForm() {
     const data = {
         message: messageInput.value,
         email: emailInput.value
-     };
+    };
     
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data));
     console.log('throttle')
