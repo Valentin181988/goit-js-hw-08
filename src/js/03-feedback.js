@@ -15,7 +15,7 @@ form.addEventListener("submit", (evt) => {
     
     const savedInput = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
     
-    if (savedInput == null || savedInput.message.length === 0 || savedInput.email.length === 0) {
+    if (savedInput === null || savedInput.message.length === 0 || savedInput.email.length === 0) {
         alert('Все поля должны быть заполнены!')
     } else {
         localStorage.removeItem(LOCALSTORAGE_KEY);
